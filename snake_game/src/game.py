@@ -5,9 +5,9 @@ from snake import Cobra
 from food import Comida
 
 class Game:
-    def __init__(self, largura, altura):
-        self.largura = largura
-        self.altura = altura
+    def __init__(self, largura_tela, altura_tela):
+        self.largura_tela = largura_tela
+        self.altura_tela = altura_tela
         self.pontos = 0
         self.velocidade = 10
         self.x_controle = 0
@@ -15,16 +15,15 @@ class Game:
         self.cor_tela = (255, 255, 255)
 
         pygame.init()
-        self.tela = pygame.display.set_mode((self.largura, self.altura))
-        self.fonte = pygame.font.SysFont('arial', 40, True, True)
+        self.tela = pygame.display.set_mode((self.largura_tela, self.altura_tela))
+        self.fonte = pygame.font.SysFont('yugothicmedium', 40, True, False)
         self.relogio = pygame.time.Clock()
-        self.tela = pygame.display.set_mode((largura, altura))
+        self.tela = pygame.display.set_mode((largura_tela, altura_tela))
         pygame.display.set_caption('Snake')
 
-        self.cobra = Cobra(640, 480)
-        self.comida = Comida((0, 600), (0, 440))
+        self.cobra = Cobra(self.largura_tela, self.altura_tela)
+        self.comida = Comida((0, self.largura_tela), (0, self.altura_tela))
         
-
     def __handler_events(self):
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -58,15 +57,11 @@ class Game:
                         self.y_controle = self.velocidade
 
     def __handler_limite_tela(self):
-        if self.cobra.y >= self.altura:
-                self.cobra.y = 0
-        elif self.cobra.y < 0:
-            self.cobra.y = self.altura
+        if self.cobra.y not in range(0, self.altura_tela):
+            self.__game_over()
 
-        if self.cobra.x >= self.largura:
-            self.cobra.x = 0
-        elif self.cobra.x < 0:
-            self.cobra.x = self.largura
+        if self.cobra.x not in range(0, self.largura_tela):
+            self.__game_over()
 
     def __handler_colisao_cobra_comida(self):
         if self.cobra.cobra.colliderect(self.comida.comida):
@@ -76,14 +71,14 @@ class Game:
 
     def __reload_game(self):
         self.pontos = 0
-        self.cobra = Cobra(self.largura, self.altura)
-        self.comida = Comida((0, 600), (0, 440))
+        self.cobra = Cobra(self.largura_tela, self.altura_tela)
+        self.comida = Comida((0, self.largura_tela), (0, self.altura_tela))
         morreu = False
         return morreu
 
     def __game_over(self):
         self.tela.fill(self.cor_tela)
-        fonte2 = pygame.font.SysFont('arial', 20, True, True)
+        fonte2 = pygame.font.SysFont('yugothicmedium', 20, False, True)
         mensagem2 = f'Você perdeu! Para reiniciar o jogo pressione a tecla R'
         texto_formatado2 = fonte2.render(mensagem2, True, (0, 0, 0))
         ret_texto = texto_formatado2.get_rect()
@@ -99,7 +94,7 @@ class Game:
                     if event.key == K_r:
                         morreu = self.__reload_game()
 
-            ret_texto.center = ((self.largura//2), (self.altura//2))
+            ret_texto.center = ((self.largura_tela//2), (self.altura_tela//2))
             self.tela.blit(texto_formatado2, ret_texto)
             pygame.display.update()
 

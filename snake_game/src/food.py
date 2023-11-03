@@ -5,8 +5,8 @@ class Comida:
     def __init__(self, limites_x, limites_y):
         self.altura = 20
         self.largura = 20
-        self.limites_x = limites_x
-        self.limites_y = limites_y
+        self.limites_x = (limites_x[0], limites_x[1] - self.largura)
+        self.limites_y = (limites_y[0], limites_y[1] - self.altura)
         self.cor = (255, 0, 0)
         self.x = randint(self.limites_x[0], self.limites_x[1])
         self.y = randint(self.limites_y[0], self.limites_y[1])
