@@ -1,8 +1,8 @@
 import pygame
 from pygame.locals import *
 from sys import exit
-from snake import Cobra
-from food import Comida
+from snake_game_human.src.snake import Cobra
+from snake_game_human.src.food import Comida
 
 
 
