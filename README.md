@@ -17,13 +17,13 @@ This project aims to implement a deep learning neural network to train artificia
 ### Snake Human Play
 If you want to play, just run the human script:
 ```bash
-    python human.py
+python human.py
 ```
 
 ### Snake AI Play
 To see the AI playing and its improvement, run the agent script:
 ```bash
-    python agent.py
+python agent.py
 ```
 
 </ol>
