@@ -4,12 +4,14 @@ from sys import exit
 from snake import Cobra
 from food import Comida
 
+
+
 class Game:
-    def __init__(self, largura_tela, altura_tela):
+    def __init__(self, altura_tela, largura_tela):
         self.largura_tela = largura_tela
         self.altura_tela = altura_tela
         self.pontos = 0
-        self.velocidade = 10
+        self.velocidade = 20
         self.x_controle = 0
         self.y_controle = self.velocidade
         self.cor_tela = (255, 255, 255)
@@ -100,7 +102,7 @@ class Game:
 
     def run(self):
         while True:
-            self.relogio.tick(30)
+            self.relogio.tick(self.velocidade)
             self.tela.fill(self.cor_tela)
 
             mensagem = f'Pontos: {self.pontos}'
